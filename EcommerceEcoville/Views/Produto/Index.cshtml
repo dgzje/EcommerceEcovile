@@ -1,0 +1,61 @@
+﻿@{
+    Layout = "~Views/Shared/_Layout.cshtml";
+    List<Produto> produtos = ViewBag.Produtos;
+    DateTime dataHora = ViewBag.DataHora;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+
+</head>
+<body>
+
+    @* Conteúdo *@
+    <div class="m-5">
+        <h2>Gerenciamento de Produtos</h2>
+        <a class="btn btn-primary" asp-action="Cadastrar">Cadastrar Produto</a>
+
+        <table style="margin-bottom:15px;margin-top:15px"
+               class="table table-hover table-striped m-2">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Preço</th>
+                    <th>Quantidade</th>
+                    <th>Criado em</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Produto item in produtos)
+                {
+                    <tr>
+                        <td>@item.Nome</td>
+                        <td>@item.Descricao</td>
+                        <td>@item.Preco.ToString("C2")</td>
+                        <td>@item.Quantidade</td>
+                        <td>@item.CriadoEm</td>
+                        <td>
+                            <a class="btn btn-danger" asp-action="Remover" asp-route-id="@item.ProdutoId">Remover</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-primary" asp-action="Alterar" asp-route-id="@item.ProdutoId">Alterar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <p>
+            <b>Dados atualizados em: </b> @dataHora
+        </p>
+    </div>
+
+</body>
+</html>
